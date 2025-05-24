@@ -33,9 +33,17 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Home/>} />
-        <Route path="/login" element={<Login/>}/>
+        <Route path="/login" element={
+          <ProtectedRoute>
+            <Login/>
+          </ProtectedRoute>
+        }/>
         <Route path="/logout" element={<Logout/>}/>
-        <Route path="/register" element={<Register/>}/>
+        <Route path="/register" element={
+          <ProtectedRoute>
+            <Register/>
+          </ProtectedRoute>
+        }/>
         <Route path="/app" element={
           <ProtectedRoute>
             <User/>

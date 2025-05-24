@@ -42,7 +42,10 @@ const ProtectedRoute = ({children}) => {
   if(isAuthenticated===null) return <div>loading...</div>
   const url_path = window.location.pathname.split('/')[1];
   
-  return isAuthenticated?(role===url_path?children:<div>your are Unauthorized to access the {url_path} Page</div>):<Navigate to="/login" />
+  let children_name = children.type.name;
+  console.log(children_name);
+  
+  return isAuthenticated?(role===url_path?children:(children_name==="Login"||children_name==="Register")?<Navigate to={`/${role}`}/>:<div>your are Unauthorized to access the {url_path} Page</div>):<Navigate to="/login" />
 }
 
 export default ProtectedRoute
