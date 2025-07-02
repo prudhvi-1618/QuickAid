@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react'
 import { USERNAME,ROLE } from '../constants';
 import api from '../api';
 import { Navigate } from 'react-router-dom';
-const ProtectedRoute = ({children}) => {
+const AuthRedirectRoute = ({children}) => {
   const [isAuthenticated,setIsAuthenticated] = useState(null);
   const [role,setRole] = useState('');
   useEffect(()=>{
@@ -20,29 +20,13 @@ const ProtectedRoute = ({children}) => {
       }
       if(role==="ADMIN") setRole("admin");
         else if(role==="DRIVER") setRole("driver");
-        else setRole("app");
-      
-      // const res = await api.post("/auth/login-success",{
-      //   username:username,
-      //   role:role
-      // })
-      // console.log(res);
-      
-      // if(res.status===200){
-
-      // }
-      // console.log(username,role);
-      
+        else if(role==="USER") setRole("app");
     }catch(e){
-      console.log("Found an Error : ",e);
-      
+      console.log("Found an Error : ",e); 
     }
   }
 
-  if(isAuthenticated===null) return <div>loading...</div>
-  const url_path = window.location.pathname.split('/')[1];
-  
-  return isAuthenticated?(role===url_path?children:<div>your are Unauthorized to access the {url_path} Page</div>):<Navigate to="/login" />
+  return isAuthenticated?<Navigate to={`/${role}`}/>:children;
 }
 
-export default ProtectedRoute
+export default AuthRedirectRoute

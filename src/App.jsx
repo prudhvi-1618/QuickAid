@@ -9,6 +9,7 @@ import { BrowserRouter,Routes,Route, Navigate } from 'react-router-dom'
 import DriverForm from './components/DriverForm.jsx'
 import AmbulanceForm from './components/AmbulanceForm.jsx'
 import ProtectedRoute from './components/ProtectedRoute.jsx'
+import AuthRedirectRoute from './components/AuthRedirectRoute.jsx'
 import Admin from './components/Admin.jsx'
 import Driver from './components/Driver.jsx'
 import DriverLayout from './pages/DriverLayout.jsx'
@@ -34,15 +35,15 @@ function App() {
       <Routes>
         <Route path="/" element={<Home/>} />
         <Route path="/login" element={
-          <ProtectedRoute>
+          <AuthRedirectRoute>
             <Login/>
-          </ProtectedRoute>
+          </AuthRedirectRoute>
         }/>
         <Route path="/logout" element={<Logout/>}/>
         <Route path="/register" element={
-          <ProtectedRoute>
+          <AuthRedirectRoute>
             <Register/>
-          </ProtectedRoute>
+          </AuthRedirectRoute>
         }/>
         <Route path="/app" element={
           <ProtectedRoute>
